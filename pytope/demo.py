@@ -48,11 +48,12 @@ s6 = 0.2
 p6 = -np.array([[0.4], [1.6]])
 P6 = s6 * P2 + p6
 
-# P7: P2 rotated 20 degrees
+# P7: P2 rotated 20 degrees (both clockwise and counter-clockwise)
 rot7 = np.pi / 9.0
 rot_mat7 = np.array([[np.cos(rot7), -np.sin(rot7)],
                      [np.sin(rot7), np.cos(rot7)]])
 P7 = rot_mat7 * P2
+P7_inv = P2 * rot_mat7
 
 # P8: -P6
 P8 = -P6
@@ -83,6 +84,8 @@ plt.plot(P5.centroid[0], P5.centroid[1], 'o')  # the centroid of P5
 P6.plot(ax1, facecolor='g', edgecolor=(0, 0, 0), linewidth=1)
 P7.plot(ax1, facecolor='g', edgecolor=(0, 0, 0), alpha=0.3,
         linewidth=1, edgealpha=0.3)
+P7_inv.plot(ax1, facecolor='g', edgecolor=(0, 0, 0), alpha=0.3,
+        linewidth=1, edgealpha=0.3, linestyle='--')
 P8.plot(ax1, facecolor='g', edgecolor=(0, 0, 0), alpha=0.3,
         linewidth=1, edgealpha=0.3)
 P9.plot(ax1, facecolor='gray', alpha=0.6, edgecolor='k')

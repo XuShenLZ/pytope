@@ -341,7 +341,7 @@ class Polytope:
       return scale(self, other)
     elif factor.ndim in [1, 2]:
       if inverse:
-        raise NotImplementedError('Inverse linear map P * M not implemented')
+        return inv_linear_map(self, other)
       else:
         return linear_map(other, self)
     else:
@@ -658,6 +658,15 @@ def linear_map(M, P):
   # TODO: M_P = Polytope(P.V @ M.T), if P.in_H_rep: M_P.determine_H_rep()?
   return Polytope(P.V @ M.T)
 
+def inv_linear_map(P, M):
+  """
+  Compute the inverse linear map P * M
+  """
+  n = M.shape[0]
+  if P.n != n:
+    raise ValueError('Dimension of P and M do not agree in inverse linear map P * M')
+  else:
+    return Polytope(P.A @ M, P.b)
 
 def intersection(P, Q):
   # Set intersection of the polytopes P and Q. P_i_Q: P intersection Q
